@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { Calculator, Zap, TrendingDown, Mail, Building2, DollarSign, Loader2 } from 'lucide-react';
 
+// ✅ ADD THIS LINE - MUST BE OUTSIDE THE COMPONENT
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
 function App() {
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
@@ -208,13 +211,14 @@ function App() {
       };
   
       // Send to backend
-      const response = await fetch('backend-production-dd9d.up.railway.app/api/leads', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(leadData),
-      });
+
+    const response = await fetch(`${API_URL}/api/leads`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(leadData),
+    });
   
       const data = await response.json();
   
