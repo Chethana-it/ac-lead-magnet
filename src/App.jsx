@@ -208,7 +208,7 @@ function App() {
       };
   
       // Send to backend
-      const response = await fetch('http://localhost:5000/api/leads', {
+      const response = await fetch('backend-production-dd9d.up.railway.app/api/leads', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
