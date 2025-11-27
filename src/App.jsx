@@ -21,9 +21,17 @@ function App() {
   const [results, setResults] = useState(null);
 
   const handleInputChange = (e) => {
+    const { name, value, type } = e.target;
+    
+    // For number inputs, prevent negative values
+    if (type === 'number') {
+      const numValue = parseFloat(value);
+      if (numValue < 0) return; // Don't update if negative
+    }
+    
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [name]: value
     });
   };
 
@@ -292,6 +300,8 @@ function App() {
                   value={formData.officeSize}
                   onChange={handleInputChange}
                   required
+                  min="1"
+                  onKeyDown={(e) => (e.key === '-' || e.key === 'e') && e.preventDefault()}
                   className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
                   placeholder="e.g., 5000"
                 />
@@ -307,6 +317,8 @@ function App() {
                   value={formData.currentACCount}
                   onChange={handleInputChange}
                   required
+                  min="1"
+                  onKeyDown={(e) => (e.key === '-' || e.key === 'e') && e.preventDefault()}
                   className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
                   placeholder="e.g., 10"
                 />
@@ -320,7 +332,14 @@ function App() {
                   name="currentACType"
                   value={formData.currentACType}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white"
+                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white appearance-none cursor-pointer"
+                  style={{ 
+                    backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e")`,
+                    backgroundPosition: 'right 0.75rem center',
+                    backgroundRepeat: 'no-repeat',
+                    backgroundSize: '1.5em 1.5em',
+                    paddingRight: '2.5rem'
+                  }}
                 >
                   <option value="non-inverter">Non-Inverter (Traditional)</option>
                   <option value="old-inverter">Old Inverter (5+ years)</option>
@@ -337,6 +356,8 @@ function App() {
                   value={formData.monthlyBill}
                   onChange={handleInputChange}
                   required
+                  min="1"
+                  onKeyDown={(e) => (e.key === '-' || e.key === 'e') && e.preventDefault()}
                   className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
                   placeholder="e.g., 150000"
                 />
